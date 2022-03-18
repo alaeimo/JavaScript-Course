@@ -47,15 +47,10 @@ class Cycling extends Workout {
   }
 }
 
-const run1 = new Running([25, -12], 2.5, 25, 16);
-const cycling1 = new Cycling([25, -12], 25, 95, 18);
-
-console.log(run1);
-console.log(cycling1);
 class App {
   #map;
   #mapEvent;
-
+  #workouts = [];
   constructor() {
     this._getPosition();
     form.addEventListener("submit", this._newWorkout.bind(this));
@@ -91,13 +86,47 @@ class App {
     inputElevation.closest(".form__row").classList.toggle("form__row--hidden");
   }
   _newWorkout(e) {
+    const isNumber = (...nums) => nums.every((num) => Number.isFinite(num));
+    const isPositive = (...nums) => nums.every((num) => num >= 0);
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
+    const cadence = +inputCadence.value;
+    const elevation = +inputElevation.value;
+    const type = inputType.value;
+    const { lat, lng } = this.#mapEvent.latlng;
+
+    let workout;
+
+    if (type === "cycling") {
+      if (
+        isNumber(distance, duration, elevation) &&
+        isPositive(distance, duration, elevation)
+      ) {
+      } else {
+        return alert("Input values most be positive numbers!");
+      }
+
+      workout = new Cycling([lat, lng], distance, duration, elevation);
+      this.#workouts.push(workout);
+    }
+    if (type === "running") {
+      if (
+        isNumber(distance, duration, cadence) &&
+        isPositive(distance, duration, cadence)
+      ) {
+      } else {
+        return alert("Input values most be positive numbers!");
+      }
+      workout = new Running([lat, lng], distance, duration, cadence);
+      this.#workouts.push(workout);
+    }
+
     e.preventDefault();
     inputCadence.value =
       inputDistance.value =
       inputDuration.value =
       inputElevation.value =
         "";
-    const { lat, lng } = this.#mapEvent.latlng;
     L.marker([lat, lng])
       .addTo(this.#map)
       .bindPopup(
@@ -106,10 +135,10 @@ class App {
           minWidth: 75,
           autoClose: false,
           closeOnClick: false,
-          className: "running-popup",
+          className: `${type}-popup`,
         })
       )
-      .setPopupContent("Workout")
+      .setPopupContent(`${type}`)
       .openPopup();
   }
 }
