@@ -164,6 +164,12 @@ class App {
           className: `${workout.type}-popup`,
         })
       )
+      .on("click", () => {
+        this.#map.setView(workout.coords, this.#mapZoom, {
+          animate: true,
+          pan: { animate: true, duration: 1 },
+        });
+      })
       .setPopupContent(
         `${workout.type === "running" ? "🏃‍♂️" : "🚴‍♀️"} ${workout.description}`
       )
