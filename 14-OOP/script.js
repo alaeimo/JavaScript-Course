@@ -25,3 +25,29 @@ const mohammad = new Person("mohammad", 1996);
 console.log(mohammad);
 
 console.log(mohammad instanceof Person);
+
+//////////////////////////////////////////////////////////
+//Prototypes
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+jonas.calcAge();
+mohammad.calcAge();
+
+console.log(Person.prototype);
+console.log(jonas.__proto__);
+console.log(mohammad.__proto__);
+
+console.log(Person.prototype === jonas.__proto__);
+console.log(Person.prototype === mohammad.__proto__);
+console.log(Person.prototype.isPrototypeOf(jonas));
+console.log(Person.prototype.isPrototypeOf(mohammad));
+console.log(Person.prototype.isPrototypeOf(Person));
+
+Person.prototype.species = "Homo Sapiens";
+console.log(jonas.species, mohammad.species);
+console.log(jonas.hasOwnProperty("firstName"));
+console.log(jonas.hasOwnProperty("species"));
+
+/////////////////////////////////////////////////////////////
