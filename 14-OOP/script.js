@@ -129,7 +129,7 @@ const Person = class {
 */
 
 //class declaration
-
+/*
 class Person {
   constructor(firstName, birthYear) {
     this.firstName = firstName;
@@ -158,3 +158,56 @@ console.log(jessica);
 // 1. Classes are not hoisted (interpreter doesn't move the declaration to the top of their scope)
 // 2. Classes are first-class citizens (ability to treat classes as values)
 // 3. Classes are executed in strict mode
+*/
+//////////////////////////////////////////////////////
+//Setters and Getters
+
+//objects setter and getter
+const account = {
+  owner: "Jonas",
+  movements: [200, -100, 500, 300],
+
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.movements);
+console.log(account.latest);
+account.latest = 50;
+console.log(account.movements);
+
+//class setter and getter
+class Person {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+
+  set firstName(name) {
+    if (name.includes(" ")) this._fullName = name;
+    else alert("${name} is not a full name");
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+}
+
+const sara = new Person("Sara Jackson", 1996);
+console.log(sara);
+console.log(sara.age);
+
+//////////////////////////////////////////////////////////////
