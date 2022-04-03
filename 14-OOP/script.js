@@ -86,7 +86,7 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 
 GOOD LUCK 😀
 */
-
+/*
 const Car = function (make, speed) {
   //properties
   this.make = make;
@@ -117,5 +117,44 @@ Mercedes.accelerate();
 
 Mercedes.brake();
 Mercedes.brake();
-
+*/
 //////////////////////////////////////////////////////////////////
+// ES6 Classes
+
+//class expression
+/*
+const Person = class {
+
+}
+*/
+
+//class declaration
+
+class Person {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+}
+
+const jessica = new Person("Jessica", 1996);
+jessica.calcAge();
+
+// Person.prototype.greet = function () {
+//   console.log(`Hey ${this.firstName}`);
+// };
+
+jessica.greet();
+console.log(jessica);
+
+// 1. Classes are not hoisted (interpreter doesn't move the declaration to the top of their scope)
+// 2. Classes are first-class citizens (ability to treat classes as values)
+// 3. Classes are executed in strict mode
