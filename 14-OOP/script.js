@@ -212,7 +212,7 @@ console.log(sara.age);
 */
 //////////////////////////////////////////////////////////////
 // Static Methods
-
+/*
 class Person {
   constructor(firstName, birthYear) {
     this.firstName = firstName;
@@ -246,3 +246,33 @@ class Person {
 Person.hey();
 const jonas = new Person("Jonas Jackson", 1998);
 // jonas.hey(); // Static methods won't work in the instances
+*/
+////////////////////////////////////////////////////////////
+// Object.create
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  },
+};
+
+const sarah = Object.create(PersonProto);
+console.log(sarah);
+sarah.calcAge();
+sarah.fullName = "Sarah Jackson";
+sarah.birthYear = 1998;
+
+console.log(sarah);
+
+const javid = Object.create(PersonProto);
+
+javid.init("Javid Smith", 1966);
+console.log(javid);
+javid.calcAge();
+
+/////////////////////////////////////////////////////////////
