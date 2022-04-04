@@ -499,7 +499,7 @@ jay.calcAge();
 */
 /////////////////////////////////////////////////////////////
 //Another Class Example
-
+/*
 class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
@@ -507,16 +507,16 @@ class Account {
     this.locale = navigator.language;
     //Protected properties
     this._pin = pin;
-    this._movements = [];
+    this.#movements = [];
     console.log(`Thanks for opening an account, ${owner}`);
   }
 
   getMovements() {
-    return this._movements;
+    return this.#movements;
   }
 
   deposit(val) {
-    this._movements.push(val);
+    this.#movements.push(val);
   }
 
   withdraw(val) {
@@ -538,12 +538,76 @@ class Account {
 const acc1 = new Account("Jonas", "EUR", 1111);
 console.log(acc1);
 
-// acc1._movements.push(300);
-// acc1._movements.push(-150);
+// acc1.#movements.push(300);
+// acc1.#movements.push(-150);
 acc1.deposit(300);
 acc1.withdraw(150);
 acc1.requestLoan(1000);
 acc1._approveLoan(3000);
 console.log(acc1);
-
+*/
 ///////////////////////////////////////////////////////
+//Encapsulation Private Class Fields and Methods
+
+// 1) Public fileds
+// 2) Private fields
+// 3) Public methods
+// 4) Private methods
+
+class Account {
+  //Public fields (instances)
+  locate = navigator.language;
+
+  //Private fields (instances)
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    // this.locale = navigator.language;
+    //Protected properties
+    this.#pin = pin;
+    // this.#movements = [];
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  //Public methods
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+  }
+
+  requestLoan(val) {
+    if (this.#approveLoan(val)) {
+      this.deposit(val);
+      console.log("Loan approved");
+    }
+  }
+
+  //Private methods
+  #approveLoan(val) {
+    return true;
+  }
+}
+
+const acc1 = new Account("Jonas", "EUR", 1111);
+console.log(acc1);
+
+// acc1.#movements.push(300);
+// acc1.#movements.push(-150);
+// acc1.#approveLoan(3000);
+
+acc1.deposit(300);
+acc1.withdraw(150);
+acc1.requestLoan(1000);
+console.log(acc1);
+
+/////////////////////////////////////////////////
