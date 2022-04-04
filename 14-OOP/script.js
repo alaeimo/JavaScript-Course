@@ -553,7 +553,7 @@ console.log(acc1);
 // 2) Private fields
 // 3) Public methods
 // 4) Private methods
-
+/*
 class Account {
   //Public fields (instances)
   locate = navigator.language;
@@ -609,5 +609,66 @@ acc1.deposit(300);
 acc1.withdraw(150);
 acc1.requestLoan(1000);
 console.log(acc1);
-
+*/
 /////////////////////////////////////////////////
+//Chaining Methods.mp4
+
+class Account {
+  //Public fields (instances)
+  locate = navigator.language;
+
+  //Private fields (instances)
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    // this.locale = navigator.language;
+    //Protected properties
+    this.#pin = pin;
+    // this.#movements = [];
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
+
+  //Public methods
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+    return this;
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+    return this;
+  }
+
+  requestLoan(val) {
+    if (this.#approveLoan(val)) {
+      this.deposit(val);
+      console.log("Loan approved");
+      return this;
+    }
+  }
+
+  //Private methods
+  #approveLoan(val) {
+    return true;
+  }
+}
+
+const acc1 = new Account("Jonas", "EUR", 1111);
+console.log(acc1);
+
+acc1
+  .deposit(300)
+  .deposit(500)
+  .withdraw(150)
+  .withdraw(300)
+  .requestLoan(1000)
+  .withdraw(200);
+
+console.log(acc1.getMovements());
